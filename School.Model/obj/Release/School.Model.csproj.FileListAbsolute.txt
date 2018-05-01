@@ -1,0 +1,15 @@
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\School.Model.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\School.Model.pdb
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\Newtonsoft.Json.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\System.Net.Http.Formatting.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\System.Web.Cors.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\System.Web.Http.Cors.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\System.Web.Http.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\Newtonsoft.Json.xml
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\System.Net.Http.Formatting.xml
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\System.Web.Http.xml
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\bin\Release\System.Web.Http.Cors.xml
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\obj\Release\School.Model.csprojResolveAssemblyReference.cache
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\obj\Release\School.Model.csproj.CoreCompileInputs.cache
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\obj\Release\School.Model.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Model\obj\Release\School.Model.pdb

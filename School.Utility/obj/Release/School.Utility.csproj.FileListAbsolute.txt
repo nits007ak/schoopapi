@@ -1,0 +1,6 @@
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\bin\Release\School.Utility.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\bin\Release\School.Utility.pdb
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\obj\Release\School.Utility.csprojResolveAssemblyReference.cache
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\obj\Release\School.Utility.csproj.CoreCompileInputs.cache
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\obj\Release\School.Utility.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\obj\Release\School.Utility.pdb
