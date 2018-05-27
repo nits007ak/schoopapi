@@ -1,6 +1,5 @@
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Entity\bin\Release\School.Entity.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Entity\bin\Release\School.Entity.pdb
-C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Entity\obj\Release\School.Entity.csprojResolveAssemblyReference.cache
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Entity\obj\Release\School.Entity.csproj.CoreCompileInputs.cache
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Entity\obj\Release\School.Entity.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Entity\obj\Release\School.Entity.pdb

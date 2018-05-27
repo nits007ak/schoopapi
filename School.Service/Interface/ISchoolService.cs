@@ -11,5 +11,8 @@ namespace School.Service.Interface
         SchoolBasicInfo GetSchoolBasicInfoByUniqueId(string schoolUniqueId);
         SchoolOtherInfo InsertUpdateSchoolOtherInfo(SchoolOtherInfo schoolOtherInfo);
         SchoolOtherInfo GetSchoolOtherInfoByUniqueId(string schoolUniqueId);
+        SchoolModel GetSchoolBasicInfoById(long schoolInfoId);
+        bool AddSuperAdminSchool(long userId, long schoolInfoId);
+        bool DeleteSuperAdminSchool(long userId);
     }
 }

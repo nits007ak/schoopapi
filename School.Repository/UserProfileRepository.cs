@@ -51,6 +51,11 @@ namespace School.Repository
 
         }
 
+        public bool IsEmailAddressExists(string email)
+        {
+           return  _schoolContext.UserProfile.Where(u => u.Email == email).Any();
+        }
+
        
 
         public UserProfile ValidateUser(string email, string password)
@@ -76,18 +81,65 @@ namespace School.Repository
                     objUserModel.SchoolInfoId = _schoolContext.StaffInfo.Where(s => s.UserId == objUserModel.UserId).Select(s => s.SchoolInfoId).FirstOrDefault();
                 }
 
-                if (objUserModel.RoleName == "SchoolAdmin")
+                if (objUserModel.RoleName == "SchoolAdmin" || objUserModel.RoleName == "SuperAdmin")
                 {
-                    objUserModel.SchoolInfoId = _schoolContext.SchoolBasicInfo.Where(s => s.UserId == objUserModel.UserId).Select(s => s.SchoolInfoId).FirstOrDefault();
+                    objUserModel.SchoolInfoId = _schoolContext.SchoolUserMapping.Where(s => s.UserId == objUserModel.UserId).Select(s => s.SchoolInfoId).FirstOrDefault();
                 }
 
+                
             }
 
             return objUserModel;
              
         }
 
-         
-       
+        public AdminProfile GetAdminProfile(long userId)
+        {
+            try
+            {
+                var objUserModel = new AdminProfile(); 
+                objUserModel = _schoolContext.UserProfile.Where(u => u.UserId == userId).Select(u => new Model.AdminProfile
+                {
+                    UserId = u.UserId,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email, 
+                    ContactNumber = u.ContactNumber, 
+                }).FirstOrDefault(); 
+                return objUserModel;
+            }
+            catch (System.Exception ex)
+            {
+                var x = ex;
+                throw;
+            } 
+        }
+
+        public AdminProfile UpdateAdminProfile(AdminProfile adminProfile)
+        {
+            try
+            {
+                var result = _schoolContext.UserProfile.Where(u => u.UserId == adminProfile.UserId).FirstOrDefault();
+                if (result != null)
+                {
+                    result.FirstName = adminProfile.FirstName;
+                    result.LastName = adminProfile.LastName;
+                    result.ContactNumber = adminProfile.ContactNumber;
+                    _schoolContext.UserProfile.Add(result);
+                    _schoolContext.SaveChanges();
+                }
+               
+                
+                return adminProfile;
+            }
+            catch (System.Exception ex)
+            {
+                var x = ex;
+                throw;
+            }
+        }
+
+
+
     }
 }

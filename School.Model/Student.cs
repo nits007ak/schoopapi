@@ -26,6 +26,7 @@ namespace School.Model
         public string UpdatedEmail { get; set; }
         public string AppCode { get; set; }
         public string ClassName { get; set; }
+        public DateTime? AppCodeCreatedDate { get; set; }
         public List<StudentParent> ParentProfile { get; set; }
     }
 
@@ -50,6 +51,7 @@ namespace School.Model
         public bool IsAppSignUp { get; set; }
         public DateTime UpdateDate { get; set; }
         public string UpdatedEmail { get; set; }
+        public string Password { get; set; }
     }
 
    

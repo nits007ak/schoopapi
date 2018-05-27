@@ -13,15 +13,19 @@ using System.IO;
 
 namespace School.WebApi.Controllers
 {
-    //[Authorize]
+    
     [ValidationActionFilter]
     public class SchoolController : ApiController
     {
        private ISchoolService _schoolService;
+        private IUserProfileService _userService;
         public SchoolController()
         {
             _schoolService = new SchoolService();
+            _userService = new UserProfileService();
         }
+
+        [Authorize(Roles = "SuperAdmin")]
         [Route("api/school/insertupdateschool")]
         [HttpPost]
         public SchoolBasicInfo CreateNewSchool([FromBody]SchoolBasicInfo schoolBasicInfo)
@@ -30,19 +34,28 @@ namespace School.WebApi.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (schoolBasicInfo.SchoolInfoId == 0)
-                    {
-                        schoolBasicInfo.SchoolUniqueId = Utilities.GenerateSchoolUnqKey(schoolBasicInfo.Name, schoolBasicInfo.City);
-                    }
-                   
-                    schoolBasicInfo.UpdateDate = DateTime.Now;
-                    schoolBasicInfo = _schoolService.InsertUpdatedSchool(schoolBasicInfo);
+                    
+                        if (schoolBasicInfo.SchoolInfoId == 0)
+                        {
+                            if (!_userService.IsEmailAddressExists(schoolBasicInfo.Email))
+                            {
+                                schoolBasicInfo.SchoolUniqueId = Utilities.GenerateSchoolUnqKey(schoolBasicInfo.Name, schoolBasicInfo.State,schoolBasicInfo.City);
+                            }
+                            else
+                            {
+                                throw new Exception("Email address already Exists!!");
+                            }
+                        } 
+
+                        schoolBasicInfo.UpdateDate = DateTime.Now;
+                        schoolBasicInfo = _schoolService.InsertUpdatedSchool(schoolBasicInfo);
+                    
                 }
             }
             catch (Exception ex)
             {
 
-                throw new Exception(ex.Message);
+                throw (ex);
             }
 
             return schoolBasicInfo;
@@ -52,6 +65,7 @@ namespace School.WebApi.Controllers
 
 
         // GET api/<controller>
+        [Authorize(Roles = "SuperAdmin")]
         [Route("api/school/getallschoollist")]
         [HttpGet]
         public IEnumerable<SchoolBasicInfo> GetAllSchoolBasicInfoList()
@@ -62,12 +76,7 @@ namespace School.WebApi.Controllers
                 var reaultList= _schoolService.GetAllSchoolBasicInfo();
                 foreach (SchoolBasicInfo schoolBasicInfo in reaultList)
                 {
-                    if (!string.IsNullOrEmpty(schoolBasicInfo.SchoolTypeIds))
-                    {
-                        var intArr = (schoolBasicInfo.SchoolTypeIds.Split('|'));
-                        schoolBasicInfo.SchoolTypeIdList = intArr.Select(c => int.Parse(c)).ToList();
-                    }
-
+                     
                     schoolBasicInfoList.Add(schoolBasicInfo);
                 }
                
@@ -82,6 +91,7 @@ namespace School.WebApi.Controllers
         }
 
         // GET api/<controller>/5
+        [Authorize(Roles = "SuperAdmin")]
         [Route("api/school/getschoolinfobyuniqueid")]
         [HttpGet]
         public SchoolBasicInfo GetSchoolBasicInfo(string schoolUniqueId)
@@ -92,11 +102,11 @@ namespace School.WebApi.Controllers
                 if (!string.IsNullOrEmpty(schoolUniqueId))
                 {
                     schoolBasicInfo = _schoolService.GetSchoolBasicInfoByUniqueId(schoolUniqueId);
-                    if (schoolBasicInfo != null && !string.IsNullOrEmpty(schoolBasicInfo.SchoolTypeIds))
-                    {
-                        var intArr = (schoolBasicInfo.SchoolTypeIds.Split('|'));
-                        schoolBasicInfo.SchoolTypeIdList = intArr.Select(c => int.Parse(c)).ToList();
-                    }
+                    //if (schoolBasicInfo != null && !string.IsNullOrEmpty(schoolBasicInfo.SchoolTypeIds))
+                    //{
+                    //    var intArr = (schoolBasicInfo.SchoolTypeIds.Split('|'));
+                    //    schoolBasicInfo.SchoolTypeIdList = intArr.Select(c => int.Parse(c)).ToList();
+                    //}
                    
                 }
                
@@ -110,6 +120,42 @@ namespace School.WebApi.Controllers
             return schoolBasicInfo;
         }
 
+
+        // GET api/<controller>/5
+        //[Authorize(Roles = "SuperAdmin,SchoolAdmin")]
+        [Route("api/school/getschoolinfobyid")]
+        [HttpGet]
+        public SchoolModel GetSchoolBasicInfo(long schoolInfoId)
+        {
+            SchoolModel schoolModel = new SchoolModel();
+            try
+            {
+                if (schoolInfoId > 0)
+                {
+                    schoolModel = _schoolService.GetSchoolBasicInfoById(schoolInfoId);
+                    //if (schoolModel != null && !string.IsNullOrEmpty(schoolModel.SchoolBasicInfoModel.SchoolTypeIds))
+                    //{
+                    //    var intArr = (schoolModel.SchoolBasicInfoModel.SchoolTypeIds.Split('|'));
+                    //    schoolModel.SchoolBasicInfoModel.SchoolTypeIdList = intArr.Select(c => int.Parse(c)).ToList();
+                    //}
+
+                }
+                else
+                {
+                    throw new Exception("SchoolInfoId is required!!");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+
+            return schoolModel;
+        }
+
+        //[Authorize(Roles = "SuperAdmin")]
         [Route("api/school/instupdschoolotherinfo")]
         [HttpPost]
         public SchoolOtherInfo InsertUpdateSchoolOtherDetail([FromBody]SchoolOtherInfo schoolOtherInfo)
@@ -143,21 +189,27 @@ namespace School.WebApi.Controllers
             return schoolOtherInfo;
         }
 
+        [Authorize(Roles = "SuperAdmin")]
         [Route("api/school/getschoolotherInfobyuniqueid")]
         [HttpGet]
         public SchoolOtherInfo GetSchoolOtherInfo(string schoolUniqueId)
         {
-            SchoolOtherInfo schoolBasicInfo = new SchoolOtherInfo();
+            SchoolOtherInfo schoolOtherInfo = new SchoolOtherInfo();
             try
             {
                 if (!string.IsNullOrEmpty(schoolUniqueId))
                 {
-                    schoolBasicInfo = _schoolService.GetSchoolOtherInfoByUniqueId(schoolUniqueId);
-                    if (schoolBasicInfo != null && !string.IsNullOrEmpty(schoolBasicInfo.logo))
+                    schoolOtherInfo = _schoolService.GetSchoolOtherInfoByUniqueId(schoolUniqueId);
+                    if (schoolOtherInfo != null && !string.IsNullOrEmpty(schoolOtherInfo.logo))
                     {
-                        schoolBasicInfo.LogoURL = Utilities.GetFileURL(schoolBasicInfo.logo, FileSavePath.SCHOOLLOGOPATH2.ToString());
-                    }
-                     
+                        schoolOtherInfo.LogoURL = Utilities.GetFileURL(schoolOtherInfo.logo, FileSavePath.SCHOOLLOGOPATH2.ToString());
+                        if (!string.IsNullOrEmpty(schoolOtherInfo.SchoolTypeIds))
+                        {
+                            var intArr = (schoolOtherInfo.SchoolTypeIds.Split('|'));
+                            schoolOtherInfo.SchoolTypeIdList = intArr.Select(c => int.Parse(c)).ToList();
+                        }
+
+                    } 
                 }
 
             }
@@ -167,9 +219,44 @@ namespace School.WebApi.Controllers
                 throw new Exception(ex.Message);
             }
 
-            return schoolBasicInfo;
+            return schoolOtherInfo;
+        }
+        [Authorize(Roles = "SuperAdmin")]
+        [Route("api/school/addsuperadminschool")]
+        [HttpPost]
+        public bool AddSuperAdminSchool([FromBody]SuperAdminSchool model)
+        {
+            try
+            {
+
+              return  _schoolService.AddSuperAdminSchool(model.UserId, model.SchoolInfoId); 
+           }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            } 
         }
 
-       
+        [Authorize(Roles = "SuperAdmin")]
+        [Route("api/school/deletesuperadminschool")]
+        [HttpPost]
+        public bool DeleteSuperAdminSchool([FromBody]SuperAdminSchool model)
+        {
+            try
+            {
+                 return _schoolService.DeleteSuperAdminSchool(model.UserId);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
+
+
+   
+
 }

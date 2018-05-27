@@ -50,6 +50,7 @@ C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\Newtonsoft.Json.d
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\Owin.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Model.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Service.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Utility.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\Swashbuckle.Core.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\System.Buffers.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\System.ComponentModel.Primitives.dll
@@ -75,9 +76,9 @@ C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\WebGrease.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Repository.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Entity.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\AutoMapper.dll
-C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Utility.dll
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Model.pdb
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Service.pdb
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Utility.pdb
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\EntityFramework.xml
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\EntityFramework.SqlServer.xml
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\Microsoft.AspNet.Identity.Core.xml
@@ -136,7 +137,6 @@ C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Repository
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Repository.dll.config
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Entity.pdb
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\AutoMapper.xml
-C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\bin\School.Utility.pdb
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\obj\Release\School.WebApi.csprojResolveAssemblyReference.cache
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\obj\Release\School.WebApi.csproj.CoreCompileInputs.cache
 C:\Users\Pankaj\Desktop\Pankaj\School\School\School.WebApi\obj\Release\School.WebApi.dll

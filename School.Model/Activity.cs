@@ -75,11 +75,8 @@ namespace School.Model
         public long  StaffId { get; set; }
         [Required]
         public DateTime ActivityDate { get; set; }
-        [Required]
         public bool IsStudentLevel { get; set; }
-        [Required]
         public bool IsClassLevel { get; set; }
-        [Required]
         public bool IsSchoolLevel { get; set; }
         public List<long> StudentIds { get; set; }
         public string ImageStr { get; set; }
@@ -115,5 +112,53 @@ namespace School.Model
         public int ActivitySubTypeChildId { get; set; }
         public string Name { get; set; }
     }
+
+   public class ActivityGetModel
+    {
+        public long ActivityDetailsId { get; set; }
+        public long StaffId { get; set; }
+        public DateTime ActivityDate { get; set; }
+        public bool IsStudentLevel { get; set; }
+        public bool IsClassLevel { get; set; }
+        public bool IsSchoolLevel { get; set; }
+        public long StudentId { get; set; }
+        public string ImageURL { get; set; }
+        public string Notes { get; set; }
+        public int ActivityTypeId { get; set; }
+        public string  ActivityName { get; set; }
+        public string ActivitySubTypeNames { get; set; }
+        public string ActivitySubChildTypeNames { get; set; }
+        public string ActivitySubTypeIds { get; set; }
+        public string ActivitySubChildTypeIds { get; set; }
+
+        public string AcivitySubName {
+            get { return CreateActivitySubName(ActivitySubTypeNames, ActivitySubChildTypeNames); }
+        }
+        public long? ClassId { get; set; }
+
+        private string CreateActivitySubName(string actSubTypeNames,string actSubTypyChildNames)
+        {
+            if (!string.IsNullOrEmpty(actSubTypyChildNames))
+            {
+                var strArr = actSubTypeNames.Split('|');
+                var strArr2 = actSubTypyChildNames.Split('|');
+                List<string> strList = new List<string>();
+                int i = 0;
+                foreach (var item in strArr)
+                {
+                    strList.Add(item + "-" + strArr2[i].ToString());
+                    i++;
+                }
+                actSubTypeNames = String.Join("|", strList);
+            }
+
+            return actSubTypeNames;
+        }
+    }
+
+
+     
+
+     
 }
  

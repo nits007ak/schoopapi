@@ -39,7 +39,7 @@ namespace School.Repository
                         Email = staffInfoEntity.Email,
                         Password = Utilities.CreateRandomPassword(8),
                         ContactNumber = staffInfoEntity.MobileNumber,
-                        RoleId = 3,
+                        RoleId = (int)_schoolContext.Roles.Where(r => r.RoleName == "Staff").Select(s => s.RoleID).FirstOrDefault(),
                         UserId = 0
                     };
                     _schoolContext.UserProfile.Add(userProfile);
@@ -98,8 +98,16 @@ namespace School.Repository
                     cfg.CreateMap<Entity.StaffInfo, Model.StaffInfo>();
                 });
                 IMapper mapper = config.CreateMapper();
-                return _schoolContext.StaffInfo.Where(s => s.StaffInfoId == staffInfoId).AsNoTracking()
+                var staffBasicInfo= _schoolContext.StaffInfo.Where(s => s.StaffInfoId == staffInfoId).AsNoTracking()
                     .AsEnumerable().Select(s => mapper.Map<Entity.StaffInfo, Model.StaffInfo>(s)).FirstOrDefault();
+
+                if (staffBasicInfo != null && staffBasicInfo.UserId > 0)
+                {
+                    staffBasicInfo.Password = _schoolContext.UserProfile
+                    .Where(u => u.UserId == staffBasicInfo.UserId).Select(s => s.Password).FirstOrDefault();
+                } 
+
+                return staffBasicInfo;
 
             }
             catch (Exception ex)

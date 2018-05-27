@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace School.Model
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+namespace School.Entity
 {
-   public class NotificationType
+    [Table("NotificationType")]
+    public class NotificationType
     {
-
-        public long NotificationTypeId { get; set; }
+        [Key]
+        public int NotificationTypeId { get; set; }
         public string NotificationName { get; set; }
         public bool IsActive { get; set; }
     }
-
+    [Table("NotificationsDetails")]
     public class NotificationsDetails
     {
+        [Key]
         public long NotificationsDetailsId { get; set; }
-        public long NotificationTypeId { get; set; }
+        public int NotificationTypeId { get; set; }
         public long StaffInfoId { get; set; }
         public DateTime NotificationDate { get; set; }
         public string ImageUrl { get; set; }
@@ -25,14 +24,17 @@ namespace School.Model
         public string Note { get; set; }
         public bool IsActive { get; set; }
     }
-    public class NotificationsLevel
+    [Table("StudentNotificationsMapping")]
+    public class StudentNotificationsMapping
     {
-        public long NotificationsLevelId { get; set; }
+        [Key]
+        public long NotificationsMappingId { get; set; }
         public long NotificationsDetailsId { get; set; }
         public bool IsStudentLevel { get; set; }
         public bool IsClassLevel { get; set; }
         public bool IsSchoolLevel { get; set; }
-        public long Id { get; set; }
+        public long StudentId { get; set; }
+        public long? ClassId { get; set; }
     }
 
 }

@@ -23,6 +23,11 @@ namespace School.Service
             return _userRepo.GetUserProfile(userId);
         }
 
+        public bool IsEmailAddressExists(string email)
+        {
+            return _userRepo.IsEmailAddressExists(email);
+        }
+
         public UserProfile ValidateUser(string email, string password)
         {
             return _userRepo.ValidateUser(email,password);

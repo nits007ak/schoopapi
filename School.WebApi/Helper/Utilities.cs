@@ -4,19 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Configuration;
+using School.Utility;
 namespace School.WebApi.Helper
 {
     public static class Utilities
     {
-        public static string GenerateSchoolUnqKey(string schoolName,string city)
+        public static string GenerateSchoolUnqKey(string schoolName,string state,string city)
         {
             var str = string.Empty;
-            if (schoolName.Length >=  5 && city.Length >= 3)
+            if (schoolName.Length >=  5 && city.Length >= 3 && state.Length == 2)
             {
                 var schoolFirstFiveChar = schoolName.Replace(" ", "").ToUpper().Trim().Substring(0, 5);
                 var cityFirstThreeChar = city.Replace(" ", "").ToUpper().Trim().Substring(0, 3);
-                var randomNo = RandomNumber(100, 10000);
-                str = schoolFirstFiveChar + cityFirstThreeChar + randomNo.ToString();
+                //var randomNo = RandomNumber(100, 10000);
+                str = schoolFirstFiveChar+"-" + state.ToUpper() + "-" + cityFirstThreeChar;
             }
             else
             {
@@ -77,6 +78,25 @@ namespace School.WebApi.Helper
             string hostURL = ConfigurationManager.AppSettings["HOSTURLPATH"];
             //String path = System.Web.Hosting.HostingEnvironment.MapPath(filePath+ fileName); //Path
             return hostURL+ filePath+ fileName;
+        }
+
+
+        public static void SendWelcomeMailToParent(string emailAddress,string password,string FullName)
+        {
+            const string templatePath = "~/EmailTemplates/WelcomeParent.html";
+            string[] fieldName1 = { "Name", "email", "password" };
+            string[] fieldValues1 = { FullName, emailAddress, password };
+            var strMailContent = Utility.Utilities.GenericEmailTemplateSet(fieldName1, fieldValues1, templatePath, "@@");
+            EmailHelper.SendMail(emailAddress, strMailContent, "Welcome to School App. Let’s get started!");
+         }
+
+        public static void SendAppCodeMailToParent(string emailAddress, string Appcode, string FullName)
+        {
+            const string templatePath = "~/EmailTemplates/AppCodeMail.html";
+            string[] fieldName1 = { "Name", "childappcode" };
+            string[] fieldValues1 = { FullName, Appcode };
+            var strMailContent = Utility.Utilities.GenericEmailTemplateSet(fieldName1, fieldValues1, templatePath, "@@");
+            EmailHelper.SendMail(emailAddress, strMailContent, "Child App Code. Lets started!");
         }
 
     }

@@ -22,6 +22,7 @@ namespace School.Entity
         public DateTime UpdateDate { get; set; }
         public string UpdatedEmail { get; set; }
         public string AppCode { get; set; }
+        public DateTime? AppCodeCreatedDate { get; set; }
     }
     [Table("StudentParent")]
     public class StudentParent

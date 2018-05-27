@@ -18,7 +18,7 @@ namespace School.WebApi
             {
                 TokenEndpointPath = new PathString("/token"),
                 Provider = new OAuthProvider(),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
                 AllowInsecureHttp = true
             };
         }

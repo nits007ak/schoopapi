@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace School.WebApi.Controllers
 {
-    //[Authorize]
+    //[Authorize(Roles = "SuperAdmin,SchoolAdmin,Staff")]
     [ValidationActionFilter]
     public class ClassController : ApiController
     {

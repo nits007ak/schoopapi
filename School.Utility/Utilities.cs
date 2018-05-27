@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Web;
+
 namespace School.Utility
 {
    public static class Utilities
@@ -14,6 +17,42 @@ namespace School.Utility
                 chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
             }
             return new string(chars);
+        }
+
+        public static string GenericEmailTemplateSet(string[] fieldNames, string[] fieldValues, string fullTemplatePath, string seprator)
+        {
+            var strReturn = string.Empty;
+            var fieldNameset = string.Empty;
+            if (fieldNames.Length == fieldValues.Length)
+            {
+                //string filepath = Path.Combine(Environment.CurrentDirectory, fullTemplatePath);
+                var filepath = HttpContext.Current.Server.MapPath(fullTemplatePath);
+                strReturn = ReadEmailTemplate(filepath);
+                for (int i = 0; i < fieldNames.Length; i++)
+                {
+                    if (seprator != string.Empty)
+                    {
+                        fieldNameset = seprator + fieldNames[i] + seprator;
+                        strReturn = strReturn.Replace(fieldNameset, fieldValues[i]);
+                    }
+                    else
+                    {
+                        strReturn = strReturn.Replace(fieldNames[i], fieldValues[i]);
+                    }
+                }
+            }
+            return strReturn;
+        }
+
+        public static string ReadEmailTemplate(string filePath)
+        {
+            var tempReadTemplate = "";
+            if (!File.Exists(filePath)) return tempReadTemplate;
+            var objStreamReader = File.OpenText(filePath);
+            var contents = objStreamReader.ReadToEnd();
+            objStreamReader.Close();
+            tempReadTemplate = contents;
+            return tempReadTemplate;
         }
     }
 }

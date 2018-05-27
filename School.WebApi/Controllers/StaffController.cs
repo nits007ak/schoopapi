@@ -12,24 +12,34 @@ using System.Web.Http;
 
 namespace School.WebApi.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "SuperAdmin,SchoolAdmin")]
     [ValidationActionFilter]
     public class StaffController : ApiController
     {
         private IStaffService _staffService;
+        private IUserProfileService _userService;
         public StaffController()
         {
             _staffService = new StaffService();
+            _userService = new UserProfileService();
         }
 
         [Route("api/staff/insertupdatestaff")]
         [HttpPost]
-        public StaffInfo CreateNewClass([FromBody]StaffInfo staffInfo)
+        public StaffInfo InsertUpdateStaffInfo([FromBody]StaffInfo staffInfo)
         {
             try
             {
                 if (ModelState.IsValid)
-                { 
+                {
+                    if (staffInfo.StaffInfoId == 0)
+                    {
+                        if (_userService.IsEmailAddressExists(staffInfo.Email))
+                        {
+                            throw new Exception("Email address already Exists!!");
+                        }
+                    }
+
                     staffInfo.UpdateDate = DateTime.Now;
                     staffInfo = _staffService.InsertUpdatedStaff(staffInfo);
                 }

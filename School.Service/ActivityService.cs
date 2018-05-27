@@ -17,14 +17,45 @@ namespace School.Service
         {
             _ActivityRepo = new ActivityRepository();
         }
+
+        public string GetActivitySubType(string activitySubTypeIds)
+        {
+            return _ActivityRepo.GetActivitySubType(activitySubTypeIds);
+        }
+
+        public string GetActivitySubTypeChild(string activitySubTypeChildIds)
+        {
+            return _ActivityRepo.GetActivitySubTypeChild(activitySubTypeChildIds);
+        }
+
+        public List<ActivityGetModel> GetAllActivitiesByClassId(long classId)
+        {
+            return _ActivityRepo.GetAllActivitiesByClassId(classId);
+        }
+
+        public List<ActivityGetModel> GetAllActivitiesByStudentId(long studentId)
+        {
+            return _ActivityRepo.GetAllActivitiesByStudentId(studentId);
+        }
+
         public List<ActivityType> GetAllActivitiesList()
         {
             return _ActivityRepo.GetAllActivitiesList();
         }
 
+        public List<NotificationType> GetAllNotificationList()
+        {
+            return _ActivityRepo.GetAllNotificationList();
+        }
+
         public bool InsertActivity(ActivityPostModel activityPostModel)
         {
             return _ActivityRepo.InsertActivity(activityPostModel);
+        }
+
+        public bool InsertNotification(NotificationPostModel notificationPostModel)
+        {
+            return _ActivityRepo.InsertNotification(notificationPostModel);
         }
     }
 }

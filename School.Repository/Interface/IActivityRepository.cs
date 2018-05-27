@@ -10,5 +10,11 @@ namespace School.Repository.Interface
     {
         List<Model.ActivityType> GetAllActivitiesList();
         bool InsertActivity(Model.ActivityPostModel activityPostModel);
+        List<Model.NotificationType> GetAllNotificationList();
+        bool InsertNotification(Model.NotificationPostModel notificationPostModel);
+        List<Model.ActivityGetModel> GetAllActivitiesByStudentId(long studentId);
+        string GetActivitySubType(string activitySubTypeIds);
+        string GetActivitySubTypeChild(string activitySubTypeChildIds);
+        List<Model.ActivityGetModel> GetAllActivitiesByClassId(long classId);
     }
 }

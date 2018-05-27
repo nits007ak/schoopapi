@@ -11,5 +11,6 @@ namespace School.Service.Interface
     {
         UserProfile GetUserProfile(long userId);
         UserProfile ValidateUser(string email, string password);
+        bool IsEmailAddressExists(string email);
     }
 }

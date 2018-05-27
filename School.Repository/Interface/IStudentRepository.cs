@@ -18,5 +18,6 @@ namespace School.Repository.Interface
         bool updateStudentAppCode(long studentId, string appCode);
         bool DeleteParentById(long parentId);
         bool DeleteStudentById(long studentId);
+        Model.UserProfile GetParentInfoById(long userId);
     }
 }

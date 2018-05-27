@@ -26,6 +26,7 @@ namespace School.Repository
         public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<SchoolBasicInfo> SchoolBasicInfo { get; set; }
+        public virtual DbSet<SchoolUserMapping> SchoolUserMapping { get; set; }
         public virtual DbSet<SchoolOtherInfo> SchoolOtherInfo { get; set; }
         public virtual DbSet<Class> Class { get; set; }
         public virtual DbSet<Student> Student { get; set; }
@@ -41,6 +42,9 @@ namespace School.Repository
         public virtual DbSet<ActivitySubTypeChild> ActivitySubTypeChild { get; set; }
         public virtual DbSet<ActivityDetails> ActivityDetails { get; set; }
         public virtual DbSet<StudentActivityMapping> StudentActivityMapping { get; set; }
+        public virtual DbSet<NotificationType> NotificationType { get; set; }
+        public virtual DbSet<NotificationsDetails> NotificationsDetails { get; set; }
+        public virtual DbSet<StudentNotificationsMapping> StudentNotificationsMapping { get; set; }
     }
 }
 

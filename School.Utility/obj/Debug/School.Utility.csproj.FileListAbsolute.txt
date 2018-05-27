@@ -1,0 +1,6 @@
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\bin\Debug\School.Utility.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\bin\Debug\School.Utility.pdb
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\obj\Debug\School.Utility.csprojResolveAssemblyReference.cache
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\obj\Debug\School.Utility.csproj.CoreCompileInputs.cache
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\obj\Debug\School.Utility.dll
+C:\Users\Pankaj\Desktop\Pankaj\School\School\School.Utility\obj\Debug\School.Utility.pdb

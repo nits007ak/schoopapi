@@ -125,8 +125,8 @@ namespace School.Repository
                         Email = stParentEntity.Email,
                         Password = Utilities.CreateRandomPassword(8),
                         ContactNumber = stParentEntity.MobileNumber,
-                        RoleId = 4,
-                        UserId=0
+                        RoleId = (int)_schoolContext.Roles.Where(r => r.RoleName == "Parent").Select(s => s.RoleID).FirstOrDefault(),
+                         UserId =0
                     };
                     _schoolContext.UserProfile.Add(userProfile);
                     _schoolContext.SaveChanges();
@@ -139,6 +139,7 @@ namespace School.Repository
                         stParent.StudentParentId = stParentEntity.StudentParentId;
                         stParent.IsActive = stParentEntity.IsActive;
                         stParent.UserId = userProfile.UserId;
+                        stParent.Password = userProfile.Password;
                     }
                     
                 }
@@ -174,8 +175,26 @@ namespace School.Repository
                     stParentModel = _schoolContext.Student.AsNoTracking().Where(s => s.StudentId == st.StudentId)
                     .AsEnumerable().Select(s => mapper.Map<Entity.Student, Model.Student>(s)).FirstOrDefault();
 
-                    stParentModel.ParentProfile=  _schoolContext.StudentParent.AsNoTracking().Where(s => s.StudentId == st.StudentId)
-                    .AsEnumerable().Select(s => mapper.Map<Entity.StudentParent, Model.StudentParent>(s)).ToList();
+                    //stParentModel.ParentProfile=  _schoolContext.StudentParent.AsNoTracking().Where(s => s.StudentId == st.StudentId)
+                    //.AsEnumerable().Select(s => mapper.Map<Entity.StudentParent, Model.StudentParent>(s)).ToList();
+
+                    stParentModel.ParentProfile = _schoolContext.StudentParent.Join(_schoolContext.UserProfile, p => p.UserId, u => u.UserId, (p, u) => new Model.StudentParent
+                    {
+                        ContactNumber = p.ContactNumber,
+                        UserId = u.UserId,
+                        Email = u.Email,
+                        FirstName = p.FirstName,
+                        Gender = p.Gender,
+                        IsActive = p.IsActive,
+                        IsAppSignUp = p.IsAppSignUp,
+                        LastName = p.LastName,
+                        MobileNumber = p.MobileNumber,
+                        Password = u.Password,
+                        StudentId = p.StudentId,
+                        StudentParentId = p.StudentParentId,
+                        UpdateDate = p.UpdateDate,
+                        UpdatedEmail = p.UpdatedEmail
+                    }).Where(p => p.StudentId == st.StudentId).ToList();
 
                     stParentList.Add(stParentModel);
                 }
@@ -198,8 +217,30 @@ namespace School.Repository
                     cfg.CreateMap<Entity.StudentParent, Model.StudentParent>();
                 });
                 IMapper mapper = config.CreateMapper();
-                return _schoolContext.StudentParent.AsNoTracking().Where(s => s.StudentId == studentId)
-                      .AsEnumerable().Select(s => mapper.Map<Entity.StudentParent, Model.StudentParent>(s)).ToList();
+                //return _schoolContext.StudentParent.AsNoTracking().Where(s => s.StudentId == studentId)
+                //      .AsEnumerable().Select(s => mapper.Map<Entity.StudentParent, Model.StudentParent>(s)).ToList();
+
+                var objParentModel = new List<Model.StudentParent>();
+
+                objParentModel = _schoolContext.StudentParent.Join(_schoolContext.UserProfile, p => p.UserId, u => u.UserId, (p,u) => new Model.StudentParent
+                {
+                    ContactNumber=p.ContactNumber,
+                    UserId=u.UserId,
+                    Email=u.Email,
+                    FirstName=p.FirstName,
+                    Gender=p.Gender,
+                    IsActive=p.IsActive,
+                    IsAppSignUp=p.IsAppSignUp,
+                    LastName=p.LastName,
+                    MobileNumber=p.MobileNumber,
+                    Password=u.Password,
+                    StudentId=p.StudentId,
+                    StudentParentId=p.StudentParentId,
+                    UpdateDate=p.UpdateDate,
+                    UpdatedEmail=p.UpdatedEmail
+                }).Where(p => p.StudentId == studentId).ToList();
+
+                return objParentModel;
 
             }
             catch (Exception ex)
@@ -215,6 +256,7 @@ namespace School.Repository
             try
             {
                  var std = _schoolContext.Student.Where(s => s.StudentId == studentId).First();
+                std.AppCodeCreatedDate = DateTime.Now;
                 std.AppCode = appCode;
                  var result= _schoolContext.SaveChanges();
                 if (result > 0)
@@ -282,6 +324,28 @@ namespace School.Repository
 
                 throw;
             }
+        }
+
+
+        public Model.UserProfile GetParentInfoById(long userId)
+        {
+            List<Model.Student> stParentList = new List<Model.Student>();
+
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Entity.UserProfile, Model.UserProfile>();
+            });
+            IMapper mapper = config.CreateMapper();
+            try
+            {
+                return _schoolContext.UserProfile.AsNoTracking().Where(s => s.UserId == userId)
+                   .AsEnumerable().Select(s => mapper.Map<Entity.UserProfile, Model.UserProfile>(s)).FirstOrDefault(); 
+             }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            } 
+             
         }
 
     }

@@ -62,5 +62,10 @@ namespace School.Service
         {
             return _studentRepo.DeleteStudentById(studentId);
         }
+
+        public UserProfile GetParentInfoById(long userId)
+        {
+            return _studentRepo.GetParentInfoById(userId);
+        }
     }
 }

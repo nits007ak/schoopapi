@@ -38,5 +38,20 @@ namespace School.Service
         {
             return _schoolRepo.GetSchoolOtherInfoByUniqueId(schoolUniqueId);
         }
+
+        public SchoolModel GetSchoolBasicInfoById(long schoolInfoId)
+        {
+            return _schoolRepo.GetSchoolBasicInfoById(schoolInfoId);
+        }
+
+        public bool AddSuperAdminSchool(long userId, long schoolInfoId)
+        {
+            return _schoolRepo.AddSuperAdminSchool(userId, schoolInfoId);
+        }
+
+        public bool DeleteSuperAdminSchool(long userId)
+        {
+            return _schoolRepo.DeleteSuperAdminSchool(userId);
+        }
     }
 }

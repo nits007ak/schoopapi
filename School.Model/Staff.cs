@@ -38,6 +38,7 @@ namespace School.Model
         public bool IsAppSignUp { get; set; }
         public DateTime UpdateDate { get; set; }
         public string UpdatedEmail { get; set; }
+        public string Password { get; set; }
     }
 
     public class StaffOtherInfo
